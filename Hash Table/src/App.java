@@ -5,10 +5,11 @@ public class App {
     {
         HashTable myTable = new HashTable(10, "My Table");
 
-        myTable.insertItem("a \n a");
+        for(int i = 0; i < 10; i++)
+        {
+            myTable.insertItem(i + "");
+        }
 
-        System.out.println(myTable.popItem("a \n b"));
-
-        System.out.println(myTable.popItem("a \n a"));
+        System.out.println(myTable.popItem(5 + ""));
     }
 }

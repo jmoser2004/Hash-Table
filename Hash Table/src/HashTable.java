@@ -20,10 +20,14 @@ public class HashTable
 
         int index = hashAlgorithm(insertMe);
 
-        if(hashTable[index].equals(""))
+        while(index < hashTable.length)
         {
-            hashTable[index] = insertMe;
-            return true;
+            if(hashTable[index].equals(""))
+            {
+                hashTable[index] = insertMe;
+                return true;
+            }
+            index++;
         }
 
         return false;
@@ -31,10 +35,10 @@ public class HashTable
 
     public String popItem(String popMe)
     {
-        if(inTable(popMe))
+        if(inTable(popMe) != -1)
         {
-            String returnMe = hashTable[hashAlgorithm(popMe)];
-            hashTable[hashAlgorithm(popMe)] = "";
+            String returnMe = hashTable[inTable(popMe)];
+            hashTable[inTable(popMe)] = "";
             return returnMe;
         }
 
@@ -43,24 +47,29 @@ public class HashTable
 
     public boolean deleteItem(String deleteMe)
     {
-        if(inTable(deleteMe))
+        if(inTable(deleteMe) != -1)
         {
-            hashTable[hashAlgorithm(deleteMe)] = "";
+            hashTable[inTable(deleteMe)] = "";
 
-            if(!inTable(deleteMe)) return true;
+            if(inTable(deleteMe) == -1) return true;
         }
         return false;
     }
 
-    public boolean inTable(String checkMe)
+    public int inTable(String checkMe)
     {
-        if(checkMe.equals("")) return false;
+        if(checkMe.equals("")) return -1;
 
         int checkIndex = hashAlgorithm(checkMe);
 
-        if(hashTable[checkIndex].equals(checkMe)) return true;
+        while(checkIndex < hashTable.length)
+        {
+            if(hashTable[checkIndex].equals(checkMe)) return checkIndex;
 
-        return false;
+            checkIndex++;
+        }
+
+        return -1;
     }
 
     public int hashAlgorithm(String hashMe)
